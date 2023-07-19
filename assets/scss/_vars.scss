@@ -1,0 +1,54 @@
+$main-color: hsl(235, 24%, 19%);
+$bk-color: hsl(235, 21%, 11%);
+$bk-image: url("../images/bg-desktop-dark.webp");
+$main-Fcolor: hsl(234, 39%, 85%);
+$seconadry-Fcolor: hsl(236, 9%, 61%, 0.5);
+$options-color: rgb(182, 176, 206);
+$border-color: hsl(234, 11%, 52%);
+$hover-color: hsl(236, 33%, 92%);
+$selection-color: hsl(235, 87%, 69%);
+
+@mixin page-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+@mixin align-vertical {
+  display: flex;
+  align-items: center;
+}
+@mixin all-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@mixin justify-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin btn-round($size) {
+  width: $size;
+  height: $size;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+@mixin input-styled {
+  flex: 1;
+  color: $main-Fcolor;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  &::placeholder {
+    font-size: 0.9rem;
+    text-transform: capitalize;
+    letter-spacing: 2px;
+    margin-left: 10px;
+  }
+}

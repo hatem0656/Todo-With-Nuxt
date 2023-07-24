@@ -1,10 +1,10 @@
 <template>
   <nav>
-    <h2>todo</h2>
+    <h1>todo</h1>
 
     <div class="profile" v-if="store.user.isAuth">
       <Icon name="iconamoon:profile" @click="" class="p-icon" />
-      <h4>{{ store.user.name }}</h4>
+      <h2>{{ store.user.name }}</h2>
     </div>
     <div
       class="log-out"
@@ -35,11 +35,12 @@ nav {
   margin-bottom: 20px;
   @include align-vertical;
 }
-h2 {
+h1 {
   text-transform: uppercase;
   flex: 1;
   color: white;
   letter-spacing: 12px;
+  font-size: 1.5rem;
 }
 
 .profile {
@@ -52,10 +53,11 @@ h2 {
     color: white;
     font-size: 1.5rem;
   }
-  h4 {
+  h2 {
     color: white;
     margin: 0;
     margin-left: 10px;
+    font-size: 1rem;
   }
 }
 .log-out {

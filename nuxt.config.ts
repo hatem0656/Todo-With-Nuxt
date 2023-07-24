@@ -16,4 +16,11 @@ export default defineNuxtConfig({
       Todos_URL: process.env.Todos_URL,
     },
   },
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: "en",
+      },
+    },
+  },
 });

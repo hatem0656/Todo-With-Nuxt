@@ -46,7 +46,7 @@ const formError = ref<error>({ email: "", password: "" });
 const handleSignIn = async () => {
   try {
     await store.signIn(email.value, password.value);
-    navigateTo("/home");
+    await navigateTo("/home");
   } catch (err) {
     formError.value = err as error;
   }

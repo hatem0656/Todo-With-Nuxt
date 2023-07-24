@@ -1,5 +1,6 @@
 <template>
-  <div class="task-list">
+  <div class="loading" v-if="isLoading">Loading Tasks...</div>
+  <div class="task-list" v-else>
     <div class="custom-container" v-for="task in viewTodos">
       <div class="checkbox" @click="store.toggleFinished(task._id)">
         <Icon name="typcn:tick" v-if="task.isFinished" />
@@ -16,9 +17,23 @@
 
     <div class="filter-container">
       <h3>{{ store.leftTasks.length }} tasks left</h3>
-      <span class="all" @click="showState = 'all'">All</span>
-      <span @click="showState = 'left'">Active</span>
-      <span class="completed" @click="showState = 'completed'">Completed</span>
+      <span
+        class="all"
+        :class="[showState === 'all' ? 'active' : '']"
+        @click="showState = 'all'"
+        >All</span
+      >
+      <span
+        :class="[showState === 'left' ? 'active' : '']"
+        @click="showState = 'left'"
+        >Active</span
+      >
+      <span
+        class="completed"
+        :class="[showState === 'completed' ? 'active' : '']"
+        @click="showState = 'completed'"
+        >Completed</span
+      >
       <span class="clear" @click="store.clearCompleted()">Clear Completed</span>
     </div>
   </div>
@@ -50,16 +65,18 @@ const viewTodos = computed(() => {
 const isLoading = ref<Boolean>(false);
 
 onNuxtReady(async () => {
+  isLoading.value = true;
   await store.fetchTasks();
+  isLoading.value = false;
 });
 </script>
 
 <style lang="scss">
 .loading {
   margin: 10px auto;
-  background-color: darkblue;
+  background-color: #2b2a2a;
   color: white;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   width: 200px;
   height: 200px;
   border-radius: 50%;
@@ -176,5 +193,13 @@ onNuxtReady(async () => {
     width: initial;
     margin-top: 0;
   }
+}
+
+.filter-container span:hover {
+  color: $hover-color;
+}
+
+span.active {
+  color: $selection-color;
 }
 </style>

@@ -29,7 +29,7 @@ onNuxtReady(async () => {
     await store.getUser();
     await navigateTo("/home");
   } catch (err) {
-    console.log(err);
+    // console.log(err);
   }
 });
 </script>

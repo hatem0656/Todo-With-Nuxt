@@ -56,7 +56,9 @@ export const useUserStore = defineStore(
           headers: {
             "Content-Type": "application/json",
           },
-        }).catch((res) => res.data.errors);
+        }).catch((err) => {
+          throw err.data;
+        });
 
         this.user._id = res._id;
         this.user.name = res.name;
@@ -68,7 +70,9 @@ export const useUserStore = defineStore(
           headers: {
             "Content-Type": "application/json",
           },
-        }).catch((res) => res.data.errors);
+        }).catch((err) => {
+          throw err.data;
+        });
 
         this.user._id = "";
         this.user.name = "";

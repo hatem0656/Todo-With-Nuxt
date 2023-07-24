@@ -1,43 +1,75 @@
 <template>
-  <nav :class="{ light: isLightMode }">
+  <nav>
     <h2>todo</h2>
-    <Icon :name="icon" @click="changeMode" class="mode-icon" />
+
+    <div class="profile" v-if="store.user.isAuth">
+      <Icon name="iconamoon:profile" @click="" class="p-icon" />
+      <h4>{{ store.user.name }}</h4>
+    </div>
+    <div
+      class="log-out"
+      title="Log Out"
+      @click="handleSignOut"
+      v-if="store.user.isAuth"
+    >
+      <Icon name="tabler:logout" class="out-icon" />
+    </div>
   </nav>
 </template>
 
 <script setup lang="ts">
-const icon = ref<String>("bi:sun-fill");
-const isLightMode = ref<Boolean>(false);
+import { useUserStore } from "@/stores/UserStore";
+const store = useUserStore();
 
-const changeMode = () => {
-  isLightMode.value = !isLightMode.value;
-  if (isLightMode.value) {
-    icon.value = "bi:moon-fill";
-  } else {
-    icon.value = "bi:sun-fill";
-  }
+const handleSignOut = async () => {
+  try {
+    await store.signOut();
+    navigateTo("/sign-in");
+  } catch (err) {}
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 nav {
   margin-top: 40px;
-  @include justify-between;
-  .mode-icon {
-    color: white;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: 0.3s;
-
-    &:hover {
-      color: $main-Fcolor;
-      transform: rotateZ(360deg);
-    }
-  }
+  margin-bottom: 20px;
+  @include align-vertical;
 }
 h2 {
   text-transform: uppercase;
+  flex: 1;
   color: white;
   letter-spacing: 12px;
+}
+
+.profile {
+  padding: 10px 15px;
+  @include align-vertical;
+  border-radius: 27px;
+
+  .p-icon {
+    margin-bottom: 3px;
+    color: white;
+    font-size: 1.5rem;
+  }
+  h4 {
+    color: white;
+    margin: 0;
+    margin-left: 10px;
+  }
+}
+.log-out {
+  margin-left: 10px;
+  cursor: pointer;
+
+  .out-icon {
+    font-size: 1.5rem;
+    color: white;
+  }
+  &:hover {
+    .out-icon {
+      color: $main-Fcolor;
+    }
+  }
 }
 </style>

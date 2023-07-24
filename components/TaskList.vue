@@ -1,12 +1,12 @@
 <template>
-  <div class="loading" v-if="isLoading">Loading ....</div>
-
-  <div class="task-list" v-else>
-    <div class="custom-container" v-for="task in store.allTasks">
-      <div class="checkbox">
-        <Icon name="typcn:tick" />
+  <div class="task-list">
+    <div class="custom-container" v-for="task in viewTodos">
+      <div class="checkbox" @click="store.toggleFinished(task._id)">
+        <Icon name="typcn:tick" v-if="task.isFinished" />
       </div>
-      <div class="task">{{ task.content }}</div>
+      <div class="task" :class="[task.isFinished ? 'checked' : '']">
+        {{ task.content }}
+      </div>
       <Icon
         name="ic:baseline-close"
         class="delete"
@@ -15,24 +15,42 @@
     </div>
 
     <div class="filter-container">
-      <h3>3 left</h3>
-      <span class="all">All</span>
-      <span>Active</span>
-      <span class="completed">Completed</span>
-      <span class="clear">Clear Completed</span>
+      <h3>{{ store.leftTasks.length }} tasks left</h3>
+      <span class="all" @click="showState = 'all'">All</span>
+      <span @click="showState = 'left'">Active</span>
+      <span class="completed" @click="showState = 'completed'">Completed</span>
+      <span class="clear" @click="store.clearCompleted()">Clear Completed</span>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useTaskStore } from "@/stores/TaskStore";
+const store = useTaskStore();
+
+const showState = ref<string>("all");
+
+const viewTodos = computed(() => {
+  switch (showState.value) {
+    case "all": {
+      return store.allTasks;
+    }
+    case "completed": {
+      return store.completedTasks;
+    }
+    case "left": {
+      return store.leftTasks;
+    }
+    default: {
+      return store.allTasks;
+    }
+  }
+});
 
 const isLoading = ref<Boolean>(false);
 
-const store = useTaskStore();
-
-onMounted(() => {
-  store.fetchTasks();
+onNuxtReady(async () => {
+  await store.fetchTasks();
 });
 </script>
 
@@ -55,16 +73,14 @@ onMounted(() => {
   flex-direction: column;
 
   .checkbox {
+    @include all-center;
     cursor: pointer;
     svg {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
       color: white;
-      visibility: hidden;
-    }
-  }
-  .checkbox.checked {
-    background-color: #8b94e9;
-    svg {
-      visibility: visible;
+      background-color: #8b94e9;
     }
   }
 

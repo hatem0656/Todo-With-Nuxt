@@ -1,5 +1,4 @@
 <template>
-  <NuxtLink to="/home">Home</NuxtLink>
   <div class="welcome">
     <h1 class="w-text">Welcome</h1>
     <h1 class="w-text">Here you can make your todo list easily</h1>
@@ -15,7 +14,17 @@
 </template>
 
 <script setup lang="ts">
-const state = ref<String>("up");
+import { useUserStore } from "@/stores/UserStore";
+const store = useUserStore();
+
+onNuxtReady(async () => {
+  try {
+    await store.getUser();
+    await navigateTo("/home");
+  } catch (err) {
+    console.log(err);
+  }
+});
 </script>
 
 <style lang="scss" scoped>

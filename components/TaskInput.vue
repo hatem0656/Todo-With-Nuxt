@@ -39,5 +39,6 @@ const content = ref<string>("");
 .create-todo {
   height: 30px;
   @include input-styled;
+  background-color: inherit;
 }
 </style>

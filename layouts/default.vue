@@ -3,10 +3,12 @@
   <div class="home">
     <div class="container">
       <NavBar />
-      <slot />
+      <div><slot /></div>
     </div>
   </div>
 </template>
+
+<script setup lang="ts"></script>
 
 <style lang="scss">
 .bk {

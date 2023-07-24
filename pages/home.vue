@@ -1,4 +1,6 @@
 <template>
+  <Title>Todo App | Todo List</Title>
+  <Meta name="description" content="Make and Manage your todos here" />
   <TaskInput />
   <TaskList v-if="store.user.isAuth" />
 </template>

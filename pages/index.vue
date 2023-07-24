@@ -1,4 +1,11 @@
 <template>
+  <Head>
+    <Title>Todo App | Welcome</Title>
+    <Meta
+      name="description"
+      content="A Todo app used for making todo list and manage your tasks easily"
+    />
+  </Head>
   <div class="welcome">
     <h1 class="w-text">Welcome</h1>
     <h1 class="w-text">Here you can make your todo list easily</h1>

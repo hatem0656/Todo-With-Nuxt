@@ -12,7 +12,10 @@
       @change="$v.email.$touch"
     />
     <p class="error" v-for="error in $v.email.$errors">
-      {{ apiError.email }} {{ error.$message }}
+      {{ error.$message }}
+    </p>
+    <p class="error">
+      {{ apiError.email }}
     </p>
 
     <label for="password">Password</label>
@@ -29,7 +32,10 @@
       @change="$v.password.$touch"
     />
     <p class="error" v-for="error in $v.password.$errors">
-      {{ apiError.password }} {{ error.$message }}
+      {{ error.$message }}
+    </p>
+    <p class="error">
+      {{ apiError.password }}
     </p>
 
     <input class="submit" type="submit" value="Sign In" />

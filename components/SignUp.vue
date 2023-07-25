@@ -27,7 +27,10 @@
       @change="$v.email.$touch"
     />
     <p class="error" v-for="error in $v.email.$errors">
-      {{ apiError.email }} {{ error.$message }}
+      {{ error.$message }}
+    </p>
+    <p class="error">
+      {{ apiError.email }}
     </p>
 
     <label for="password">Password</label>
@@ -38,13 +41,11 @@
       placeholder="enter your password..."
       class="custom-container field"
       v-model="form.password"
-      :class="[
-        apiError.password !== '' || $v.password.$error ? 'err-input' : '',
-      ]"
+      :class="[$v.password.$error ? 'err-input' : '']"
       @change="$v.password.$touch"
     />
     <p class="error" v-for="error in $v.password.$errors">
-      {{ apiError.password }} {{ error.$message }}
+      {{ error.$message }}
     </p>
 
     <input type="submit" value="Sign Up" class="submit" />

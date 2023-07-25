@@ -106,6 +106,8 @@ const handleSignUp = async () => {
     } catch (err) {
       apiError.value = err as err;
     }
+  } else {
+    apiError.value = { email: "", password: "" };
   }
 };
 </script>

@@ -6,38 +6,46 @@
       name="name"
       id="name"
       placeholder="enter your name..."
-      required
-      maxlength="50"
       class="custom-container field"
-      v-model="name"
+      v-model="form.name"
+      :class="[$v.name.$error ? 'err-input' : '']"
+      @change="$v.email.$touch"
     />
+    <p class="error" v-for="error in $v.name.$errors">
+      {{ error.$message }}
+    </p>
 
     <label for="email">Email</label>
     <input
-      type="email"
+      type="text"
       name="email"
       id="email"
       placeholder="enter your email..."
-      required
       class="custom-container field"
-      :class="[formError.email !== '' ? 'err-input' : '']"
-      v-model="email"
+      v-model="form.email"
+      :class="[apiError.email !== '' || $v.email.$error ? 'err-input' : '']"
+      @change="$v.email.$touch"
     />
-    <p class="error">{{ formError.email }}</p>
+    <p class="error" v-for="error in $v.email.$errors">
+      {{ apiError.email }} {{ error.$message }}
+    </p>
+
     <label for="password">Password</label>
     <input
       type="password"
       name="password"
       id="password"
       placeholder="enter your password..."
-      minlength="6"
-      maxlength="20"
-      required
       class="custom-container field"
-      :class="[formError.password !== '' ? 'err-input' : '']"
-      v-model="password"
+      v-model="form.password"
+      :class="[
+        apiError.password !== '' || $v.password.$error ? 'err-input' : '',
+      ]"
+      @change="$v.password.$touch"
     />
-    <p class="error">{{ formError.password }}</p>
+    <p class="error" v-for="error in $v.password.$errors">
+      {{ apiError.password }} {{ error.$message }}
+    </p>
 
     <input type="submit" value="Sign Up" class="submit" />
 
@@ -46,21 +54,57 @@
 </template>
 
 <script setup lang="ts">
-import error from "@/models/errorModel";
+//----------------Vueildate---------------------//
+import { useVuelidate } from "@vuelidate/core";
+import { email, required, minLength, helpers } from "@vuelidate/validators";
+import err from "@/models/errorModel";
+
+//----------------Pinia---------------------//
 import { useUserStore } from "@/stores/UserStore";
 const store = useUserStore();
 
-const name = ref<string>("");
-const email = ref<string>("");
-const password = ref<string>("");
-const formError = ref<error>({ email: "", password: "" });
+type formData = {
+  name: string;
+  email: string;
+  password: string;
+};
+const form = ref<formData>({ name: "", email: "", password: "" });
+const apiError = ref<err>({ email: "", password: "" });
+
+const rules = computed(() => {
+  return {
+    name: {
+      required: helpers.withMessage("The name field is required", required),
+    },
+    email: {
+      required: helpers.withMessage("The email field is required", required),
+      email: helpers.withMessage("Invalid email format", email),
+    },
+    password: {
+      required: helpers.withMessage("The password field is required", required),
+      minLength: helpers.withMessage(
+        "Password must be at least 6 charcters or digits ",
+        minLength(6)
+      ),
+    },
+  };
+});
+
+const $v = useVuelidate(rules, form);
 
 const handleSignUp = async () => {
-  try {
-    await store.signUp(name.value, email.value, password.value);
-    await navigateTo("/sign-in");
-  } catch (err) {
-    formError.value = err as error;
+  const validate: boolean = await $v.value.$validate();
+  if (validate) {
+    try {
+      await store.signUp(
+        form.value.name,
+        form.value.email,
+        form.value.password
+      );
+      await navigateTo("/sign-in");
+    } catch (err) {
+      apiError.value = err as err;
+    }
   }
 };
 </script>

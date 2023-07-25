@@ -24,7 +24,12 @@
       class="custom-container field"
       v-model="form.email"
       :class="[apiError.email !== '' || $v.email.$error ? 'err-input' : '']"
-      @change="$v.email.$touch"
+      @change="
+        () => {
+          $v.email.$touch;
+          apiError.email = '';
+        }
+      "
     />
     <p class="error" v-for="error in $v.email.$errors">
       {{ error.$message }}
@@ -42,7 +47,12 @@
       class="custom-container field"
       v-model="form.password"
       :class="[$v.password.$error ? 'err-input' : '']"
-      @change="$v.password.$touch"
+      @change="
+        () => {
+          $v.password.$touch;
+          apiError.password = '';
+        }
+      "
     />
     <p class="error" v-for="error in $v.password.$errors">
       {{ error.$message }}
@@ -106,8 +116,6 @@ const handleSignUp = async () => {
     } catch (err) {
       apiError.value = err as err;
     }
-  } else {
-    apiError.value = { email: "", password: "" };
   }
 };
 </script>

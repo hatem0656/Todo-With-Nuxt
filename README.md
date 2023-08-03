@@ -43,9 +43,7 @@ Users should be able to:
 
 - Live Site URL: [Vercel](https://todo-with-nuxt.vercel.app/)
 
-## My Process
-
-### Built with
+## Built with
 
 - [Nuxt 3](https://vuejs.org/) - Web Framework based on Vue 3
 - [TypeScript](https://www.typescriptlang.org/) - JavaScript with syntax for types

@@ -1,63 +1,65 @@
-# Nuxt 3 Minimal Starter
+# Todo With Nuxt
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+<nobr><img src="https://img.shields.io/badge/nuxt%20js-00C58E?style=for-the-badge&logo=nuxtdotjs&logoColor=white" /> <nobr/>
+<nobr><img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" /> <nobr/>
+<nobr><img src="https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white" /> <nobr/>
+<nobr><img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" /> <nobr/>
 
-## Setup
+## Table of contents
 
-Make sure to install the dependencies:
+- [Overview](#overview)
+  - [The Challenge](#the-challenge)
+  - [Live Website](#live-website)
+  - [Links](#links)
+- [Built with](#built-with)
+- [SEO & Performance](#seo-&-performance)
+- [Node JS API](#node-js-api)
+- [Author](#author)
 
-```bash
-# npm
-npm install
+## Overview
 
-# pnpm
-pnpm install
+A simple todo app project implemented with Nuxt, Typescript and Pinia. I made this project as a practical exercise for what I learned within these technologies.
 
-# yarn
-yarn install
-```
+### The Challenge
 
-## Development Server
+Users should be able to:
 
-Start the development server on `http://localhost:3000`:
+- Create account
+- Sign In to your account
+- Sign Out
+- Create a new todo
+- See a list of all of the todos of the user
+- Toggle the todo as completed through a checkbox button
+- Delete a single todo
+- Delete all the completed todos
+- Show a list of the active todos only
+- Show a list of the completed todos only
 
-```bash
-# npm
-npm run dev
+### Live Website
 
-# pnpm
-pnpm run dev
+![Live Website](assets/images/live.png)
 
-# yarn
-yarn dev
-```
+### Links
 
-## Production
+- Live Site URL: [Vercel](https://todo-with-nuxt.vercel.app/)
 
-Build the application for production:
+## My Process
 
-```bash
-# npm
-npm run build
+### Built with
 
-# pnpm
-pnpm run build
+- [Nuxt 3](https://vuejs.org/) - Web Framework based on Vue 3
+- [TypeScript](https://www.typescriptlang.org/) - JavaScript with syntax for types
+- [Pinia](https://pinia.vuejs.org/) - State Management Library
+- [Sass](https://sass-lang.com/) - CSS Preprocessor
 
-# yarn
-yarn build
-```
+## SEO & Performance
 
-Locally preview production build:
+![LightHouse](assets/images/seo.png)
 
-```bash
-# npm
-npm run preview
+## Node Js API
 
-# pnpm
-pnpm run preview
+The Node Js API can be [found here](https://github.com/hatem0656/Todo-API)
 
-# yarn
-yarn preview
-```
+## Author
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+- Linkedin - [Hatem Mohamed](https://www.linkedin.com/in/hatem-mohamed-85346916a/)
